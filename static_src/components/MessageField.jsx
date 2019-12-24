@@ -9,27 +9,23 @@ import './styles/styles.css';
 export default class MessageField extends React.Component {
   static propTypes = {
     chatId: PropTypes.number.isRequired,
+    messages: PropTypes.object.isRequired,
+    chats: PropTypes.object.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+
+
   };
 
   state = {
-    chats: {
-        1: {title: 'Чат 1', messageList: [1]},
-        2: {title: 'Чат 2', messageList: [2]},
-        3: {title: 'Чат 3', messageList: []},
-    },
-    messages: {
-        1: { text: "Привет!", sender: 'bot' },
-        2: { text: "Здравствуйте!", sender: 'bot' },
-    },
     input: '',
   };
 
 
-  constructor(props) {
-    super(props);
-    // создадим ref в поле `textInput` для хранения DOM-элемента
-    this.textInput = React.createRef();
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // создадим ref в поле `textInput` для хранения DOM-элемента
+  //   this.textInput = React.createRef();
+  // }
 
 
    
@@ -37,9 +33,9 @@ export default class MessageField extends React.Component {
     
    
      // Ставим фокус на <TextInput> при монтировании компонента
-     componentDidMount() {
-      this.textInput.current.focus();
-    }
+    //  componentDidMount() {
+    //   this.textInput.current.focus();
+    // }
  
    
 handleChange  = (event) => {
@@ -47,7 +43,7 @@ handleChange  = (event) => {
 };
 
 
-handleKeyUp = (event) => {
+handleKeyUp = (event ) => {
   if (event.keyCode === 13) { // Enter
       this.handleSendMessage(this.state.input, 'me')
   }
@@ -55,71 +51,70 @@ handleKeyUp = (event) => {
 
 
    
-componentDidUpdate(prevProps, prevState) {
-  const { messages } = this.state;
-       if (Object.keys(prevState.messages).length < Object.keys(messages).length &&
-           Object.values(messages)[Object.values(messages).length - 1].sender === 'me') {
-           setTimeout(() =>
-               this.handleSendMessage('Не приставай ко мне, я робот!', 'bot'), 1000);
-       }
 
-} ;
+// handleSendMessage = (message, sender) => {
+//   const { messages, chats, input } = this.state;
+//   const { chatId } = this.props;
+
+//   if (input.length > 0 || sender === 'bot') {
+//       const messageId = Object.keys(messages).length + 1;
+//       this.setState({
+//           messages: {...messages,
+//               [messageId]: {text: message, sender: sender}},
+//           chats: {...chats,
+//               [chatId]: { ...chats[chatId],
+//                   messageList: [...chats[chatId]['messageList'], messageId]
+//               }
+//           },
+//       })
+//   }
+//   if (sender === 'me') {
+//       this.setState({ input: '' })
+//   }
+// };
 handleSendMessage = (message, sender) => {
-  const { messages, chats, input } = this.state;
-  const { chatId } = this.props;
-
-  if (input.length > 0 || sender === 'bot') {
-      const messageId = Object.keys(messages).length + 1;
-      this.setState({
-          messages: {...messages,
-              [messageId]: {text: message, sender: sender}},
-          chats: {...chats,
-              [chatId]: { ...chats[chatId],
-                  messageList: [...chats[chatId]['messageList'], messageId]
-              }
-          },
-      })
+  if (message.length > 0 || sender === 'bot') {
+      this.props.sendMessage(message, sender);
   }
   if (sender === 'me') {
       this.setState({ input: '' })
   }
 };
 
-
      
 
    render() {
-    const { messages, chats } = this.state;
-    const { chatId } = this.props;
+     
+    const { chatId, messages, chats } = this.props;
 
-       const messageElements = chats[chatId].messageList.map((messageId, index) => (
+       const messageElements = chats[chatId].messageList.map(messageId => (
            <Message
-               key={ index }
+               key={ messageId }
                text={ messages[messageId].text }
                sender={ messages[messageId].sender }
-           />));
+           > </Message>));
 
-       return   <div style={ {height: '90%'}}>
-                <div className="message-field">
+       return [ 
+          <div style={ {height: '90%'}}>
+                <div  key='message-field' className="message-field"   >
                     { messageElements }
                 </div>
         
-                <div style={ { width: '100%', display: 'flex' } }>
+                <div key='text-field' style={ { width: '100%', display: 'flex' } }  >
                   <TextField
-                      name="input"
-                      ref={ this.textInput }
-                      fullWidth={ true }
-                      hintText="Введите сообщение"
-                      style={ { fontSize: '22px' } }
-                      onChange={ this.handleChange }
-                      value={ this.state.input }
-                      onKeyUp={  this.handleKeyUp }
-                  />
+                    name="input"
+                    fullWidth={ true }
+                    hintText="Введите сообщение"
+                    style={ { fontSize: '22px' } }
+                    onChange={ this.handleChange }
+                    value={ this.state.input }
+                    onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
+                  > </TextField>
                   <FloatingActionButton onClick={ () => this.handleSendMessage(this.state.input, 'me') }>
-                     <SendIcon />
+                     <SendIcon> </SendIcon>
                   </FloatingActionButton>
                 </div>
                 </div>
-
+                 ]
                 }
 }
