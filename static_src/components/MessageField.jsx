@@ -10,6 +10,7 @@ import './styles/styles.css';
  class MessageField extends React.Component {
   static propTypes = {
     chatId: PropTypes.number.isRequired,
+    
     messages: PropTypes.object.isRequired,
     chats: PropTypes.object.isRequired,
     sendMessage: PropTypes.func.isRequired,
@@ -93,7 +94,7 @@ handleSendMessage = (message, sender) => {
                key={ messageId }
                text={ messages[messageId].text }
                sender={ messages[messageId].sender }
-           > </Message>));
+           />));
 
        return [ 
           <div style={ {height: '90%'}}>
@@ -112,7 +113,7 @@ handleSendMessage = (message, sender) => {
                     onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) }
                   /> 
                   <FloatingActionButton onClick={ () => this.handleSendMessage(this.state.input, 'me') }>
-                     <SendIcon> </SendIcon>
+                     <SendIcon></SendIcon>
                   </FloatingActionButton>
                 </div>
                 </div>
@@ -122,7 +123,8 @@ handleSendMessage = (message, sender) => {
 
 const mapStateToProps = ({ chatReducer }) => ({
   chats: chatReducer.chats,
-  messages: chatReducer.messages,
+  // messages: messageReducer.messages,
+ 
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);

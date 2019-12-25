@@ -5,8 +5,9 @@ import connect from "react-redux/es/connect/connect";
 import MessageField from './MessageField';
 import ChatList from './ChatList';
 import Header from './Header';
-// import { sendMessage } from "../actions/messageActions";
-import {chatReducer} from "../reducers/chatReducer";
+import { sendMessage } from "../actions/messageActions";
+// import { chatReducer } from "../reducers/chatReducer";
+// import { messageReducer} from '../reducers/messageReducer';
 import './styles/styles.css';
 
 
@@ -14,24 +15,25 @@ import './styles/styles.css';
 
   static propTypes = {
     chatId: PropTypes.number,
-    // sendMessage: PropTypes.func.isRequired,
+    // messageReducer: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
 };
 
 static defaultProps = {
     chatId: 1,
 };
 
-// state = {
-//   // chats: {
-//   //     1: {title: 'Чат 1', messageList: [1]},
-//   //     2: {title: 'Чат 2', messageList: [2]},
-//   //     3: {title: 'Чат 3', messageList: []},
-//   // },
-//   // messages: {
-//   //     1: { text: "Привет!", sender: 'bot' },
-//   //     2: { text: "Здравствуйте!", sender: 'bot' },
-//   // },
-// };
+state = {
+  // chats: {
+  //     1: {title: 'Чат 1', messageList: [1]},
+  //     2: {title: 'Чат 2', messageList: [2]},
+  //     3: {title: 'Чат 3', messageList: []},
+  // },
+  messages: {
+      1: { text: "Привет!", sender: 'bot' },
+      2: { text: "Здравствуйте!", sender: 'bot' },
+  },
+};
 
 componentDidUpdate(prevProps, prevState) {
   const { messages } = this.state;
@@ -41,17 +43,17 @@ componentDidUpdate(prevProps, prevState) {
         }
 }
 
-// sendMessage = (message, sender) => {
-//   const { messages } = this.state;
-//   const { chatId } = this.props;
+sendMessage = (message, sender) => {
+  const { messages } = this.state;
+  const { chatId } = this.props;
 
-//   const messageId = Object.keys(messages).length + 1;
-//   this.setState({
-//       messages: {...messages,
-//           [messageId]: {text: message, sender: sender}},
-//   });
-//   this.props.sendMessage(messageId, message, sender, chatId);
-// };
+  const messageId = Object.keys(messages).length + 1;
+  this.setState({
+      messages: {...messages,
+          [messageId]: {text: message, sender: sender}},
+  });
+  this.props.sendMessage(messageId, message, sender, chatId);
+};
 
 
 
@@ -79,7 +81,7 @@ componentDidUpdate(prevProps, prevState) {
           <div className="messages">
           <MessageField
             chatId={ this.props.chatId }
-            // messages={ this.state.messages }
+            messages={ this.state.messages }
             sendMessage={ this.sendMessage }
           />
           </div>
@@ -92,6 +94,6 @@ componentDidUpdate(prevProps, prevState) {
 
 const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = dispatch => bindActionCreators({ chatReducer }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

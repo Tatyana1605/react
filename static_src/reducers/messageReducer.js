@@ -10,15 +10,20 @@ const messageStore = {
 };
 
 
+
 export default function messageReducer (store = messageStore, action) {
+   
    switch (action.type) {
        case SEND_MESSAGE: {
-           return update(store, {
-               chats: { $merge: { [action.chatId]: {
-                   title: store.chats[action.chatId].title,
-                   messageList: [...store.chats[action.chatId].messageList, action.messageId]
-               } } },
-           });
+              const messageId = Object.keys(store.messages).length + 1;
+        return update(store, {
+          messages: {$merge: {
+            
+                [messageId]: {
+                  text: message, sender: sender}},
+        
+                }
+      });
        }
        case ADD_CHAT: {
            const chatId = Object.keys(store.chats).length + 1;
@@ -29,6 +34,7 @@ export default function messageReducer (store = messageStore, action) {
               } } },
            });
        }
+       
        default:
            return store;
    }
