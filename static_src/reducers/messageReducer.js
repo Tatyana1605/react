@@ -1,41 +1,26 @@
 import update from 'react-addons-update';
 import { SEND_MESSAGE } from '../actions/messageActions';
-import { ADD_CHAT } from "../actions/chatActions";
 
-const messageStore = {
+
+const initialStore = {
   messages: {
-    1: { text: "Привет!", sender: 'bot' },
-    2: { text: "Здравствуйте!", sender: 'bot' },
-},
+          1: { text: "Привет!", sender: 'bot' },
+          2: { text: "Здравствуйте!", sender: 'bot' },
+      },
+  isLoading: true,
+ 
 };
 
 
 
-export default function messageReducer (store = messageStore, action) {
-   
-   switch (action.type) {
-       case SEND_MESSAGE: {
-              const messageId = Object.keys(store.messages).length + 1;
-        return update(store, {
-          messages: {$merge: {
-            
-                [messageId]: {
-                  text: message, sender: sender}},
-        
-                }
-      });
-       }
-       case ADD_CHAT: {
-           const chatId = Object.keys(store.chats).length + 1;
-           return update(store, {
-              chats: { $merge: {
-                  [chatId]: {
-                      title: action.title, messageList: []
-              } } },
-           });
-       }
-       
-       default:
-           return store;
-   }
+export default function messageReducer(store = initialStore, action) {
+  switch (action.type) {
+      case SEND_MESSAGE: {
+          return update(store, {
+              messages: { $merge: { [action.messageId]: {text: action.text, sender: action.sender} } },
+          });
+      }
+      default:
+          return store;
+  }
 }

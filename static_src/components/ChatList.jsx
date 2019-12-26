@@ -17,7 +17,6 @@ class ChatList extends React.Component {
     static propTypes = {
         chats: PropTypes.object.isRequired,
         addChat: PropTypes.func.isRequired,
-        // sendMessage: PropTypes.func.isRequired,
 
     };
 
@@ -49,8 +48,7 @@ class ChatList extends React.Component {
         <Link key={ chatId } to={ `/chat/${chatId}` }>
             <ListItem
                 primaryText={ chats[chatId].title }
-                leftIcon={ <ContentSend /> } >
-            </ListItem>
+                leftIcon={ <ContentSend /> } ></ListItem>
         </Link>));
 
     return (
@@ -81,7 +79,6 @@ class ChatList extends React.Component {
 
 const mapStateToProps = ({ chatReducer  }) => ({
     chats: chatReducer.chats,
-    // messages: messageReducer.messages,
  });
  
  const mapDispatchToProps = dispatch => bindActionCreators({ addChat  }, dispatch);

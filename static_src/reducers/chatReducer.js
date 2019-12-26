@@ -8,43 +8,27 @@ const initialStore = {
     2: {title: 'Чат 2', messageList: [2]},
     3: {title: 'Чат 3', messageList: []},
 },
-//   messages: {
-//     1: { text: "Привет!", sender: 'bot' },
-//     2: { text: "Здравствуйте!", sender: 'bot' },
-// },
 };
 
 
 export default function chatReducer(store = initialStore, action) {
-   switch (action.type) {
-       case SEND_MESSAGE: {
-
-      //   const messageId = Object.keys(store.messages).length + 1;
-      //   return update(store, {
-      //     messages: {$merge: {
-            
-      //           [messageId]: {
-      //             text: message, sender: sender}},
-        
-      //           }
-      // });
-           return update(store, {
-               chats: { $merge: { [action.chatId]: {
-                   title: store.chats[action.chatId].title,
-                   messageList: [...store.chats[action.chatId].messageList, action.messageId]
-               } } },
-           });
-       }
-       case ADD_CHAT: {
-           const chatId = Object.keys(store.chats).length + 1;
-           return update(store, {
-              chats: { $merge: {
-                  [chatId]: {
-                      title: action.title, messageList: []
+  switch (action.type) {
+      case SEND_MESSAGE: {
+          console.log(action);
+          return update(store, {
+              chats: { $merge: { [action.chatId]: {
+                  title: store.chats[action.chatId].title,
+                  messageList: [...store.chats[action.chatId].messageList, action.messageId]
               } } },
-           });
-       }
-       default:
-           return store;
-   }
+          });
+      }
+      case ADD_CHAT: {
+          const chatId = Object.keys(store.chats).length + 1;
+          return update(store, {
+              chats: { $merge: { [chatId]: { title: action.title, messageList: [] } } }
+          });
+      }
+      default:
+          return store;
+  }
 }

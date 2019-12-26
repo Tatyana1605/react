@@ -1,7 +1,6 @@
 {
   "name": "lesson1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack --mode development",
@@ -33,5 +32,14 @@
   },
   "devDependencies": {
     "webpack-cli": "^3.3.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tatyana1605/react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tatyana1605/react/issues"
+  },
+  "homepage": "https://github.com/Tatyana1605/react#readme",
+  "description": ""
 }
