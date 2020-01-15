@@ -23,36 +23,11 @@ import './styles/styles.css';
   };
 
 
-  // constructor(props) {
-  //   super(props);
-  //   // создадим ref в поле `textInput` для хранения DOM-элемента
-  //   this.textInput = React.createRef();
-  // }
-
-
-   
-       
-    
-   
-     // Ставим фокус на <TextInput> при монтировании компонента
-    //  componentDidMount() {
-    //   this.textInput.current.focus();
-    // }
- 
-   
-
-
-componentDidUpdate(prevProps, prevState) {
-  if (Object.keys(prevProps.messages).length < Object.keys(this.props.messages).length &&
-      this.props.messages[Object.keys(this.props.messages).length].sender === 'me') {
-      setTimeout(() => this.sendMessage('Не приставай ко мне, я робот!', 'bot'), 1000);
-  }
-}
 
 sendMessage = (message, sender) => {
  const { chatId, messages } = this.props;
  const messageId = Object.keys(messages).length + 1;
- console.log(messageId, message, sender, chatId);
+//  console.log(messageId, message, sender, chatId);
  this.props.sendMessage(messageId, message, sender, chatId);
 };
    
@@ -67,29 +42,10 @@ handleKeyUp = (event ) => {
   }
 };
 
-// handleSendMessage = (message, sender) => {
-//   const { messages, chats, input } = this.state;
-//   const { chatId } = this.props;
-
-//   if (input.length > 0 || sender === 'bot') {
-//       const messageId = Object.keys(messages).length + 1;
-//       this.setState({
-//           messages: {...messages,
-//               [messageId]: {text: message, sender: sender}},
-//           chats: {...chats,
-//               [chatId]: { ...chats[chatId],
-//                   messageList: [...chats[chatId]['messageList'], messageId]
-//               }
-//           },
-//       })
-//   }
-//   if (sender === 'me') {
-//       this.setState({ input: '' })
-//   }
-// };
+ 
 handleSendMessage = (message, sender) => {
   if (message.length > 0 || sender === 'bot') {
-      this.props.sendMessage(message, sender);
+      this.sendMessage(message, sender);
   }
   if (sender === 'me') {
       this.setState({ input: '' })
