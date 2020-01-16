@@ -14,6 +14,7 @@ import { addChat } from '../actions/chatActions';
 class ChatList extends React.Component {
     static propTypes = {
         chats: PropTypes.object.isRequired,
+        chatsRed: PropTypes.arrayOf(PropTypes.number).isRequired,
         addChat: PropTypes.func.isRequired,
         push: PropTypes.func.isRequired,
 
@@ -45,10 +46,11 @@ class ChatList extends React.Component {
  
  
    render() {
-    const { chats } = this.props;
+    const { chats, chatsRed } = this.props;
     const chatElements = Object.keys(chats).map(chatId => (
           
             <ListItem
+                style={ chatsRed.indexOf(Number(chatId)) >=0 ? {backgroundColor: 'red'} : {} }
                 key={ chatId }
                 primaryText={ chats[chatId].title }
                 leftIcon={ <ContentSend /> } 
@@ -83,6 +85,7 @@ class ChatList extends React.Component {
 
 const mapStateToProps = ({ chatReducer }) => ({
     chats: chatReducer.chats,
+    chatsRed: chatReducer.chatsRed,
  });
  
  const mapDispatchToProps = dispatch => bindActionCreators({ addChat, push }, dispatch);
