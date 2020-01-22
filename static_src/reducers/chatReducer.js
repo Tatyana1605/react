@@ -1,5 +1,5 @@
 import update from 'react-addons-update';
-import { SEND_MESSAGE } from '../actions/messageActions';
+import { SEND_MESSAGE, SUCCESS_MESSAGES_LOADING } from '../actions/messageActions';
 import { ADD_CHAT, HIGHLIGHT_CHAT, UNHIGHLIGHT_CHAT } from "../actions/chatActions";
 
 const initialStore = {
@@ -23,6 +23,19 @@ export default function chatReducer(store = initialStore, action) {
               } } },
           });
       }
+
+      case SUCCESS_MESSAGES_LOADING: {
+        const chats = {...store.chats};
+        action.payload.forEach(msg => {
+            const { id, chatId } = msg;
+            chats[chatId].messageList.push(id);
+        });
+        return update(store, {
+            chats: { $set: chats },
+            isLoading: { $set: false },
+        });
+    }
+
       case ADD_CHAT: {
           const chatId = Object.keys(store.chats).length + 1;
           return update(store, {
