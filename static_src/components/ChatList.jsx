@@ -50,8 +50,8 @@ class ChatList extends React.Component {
     const chatElements = Object.keys(chats).map(chatId => (
           
             <ListItem
-                style={ chatsRed.indexOf(Number(chatId)) >=0 ? {backgroundColor: 'red'} : {} }
-                key={ chatId }
+                 style={ chatsRed.indexOf(Number(chatId)) >=0 ? {backgroundColor: 'red'} : {} }
+                // key={ chatId }
                 primaryText={ chats[chatId].title }
                 leftIcon={ <ContentSend /> } 
                 onClick={ () => this.handleNavigate(`/chat/${chatId}`) }/>
