@@ -6,9 +6,10 @@ import connect from "react-redux/es/connect/connect";
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import Message from './Message';
-import { loadChats } from '../actions/chatActions';
+
 import CircularProgress from 'material-ui/CircularProgress';
-import { sendMessage, loadMessages} from '../actions/messageActions';
+import { sendMessage } from '../actions/messageActions';
+import {   loadChats} from '../actions/chatActions';
 import './styles/styles.css';
  class MessageField extends React.Component {
   static propTypes = {
@@ -16,9 +17,9 @@ import './styles/styles.css';
     messages: PropTypes.object.isRequired,
     chats: PropTypes.object.isRequired,
     sendMessage: PropTypes.func.isRequired,
-    loadMessages: PropTypes.func.isRequired,
+    // loadMessages: PropTypes.func.isRequired,
     loadChats: PropTypes.func.isRequired,
-    // isLoading: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
 
 
   };
@@ -115,7 +116,7 @@ handleSendMessage = (message, sender) => {
 const mapStateToProps = ({ chatReducer, messageReducer }) => ({
   chats: chatReducer.chats,
   messages: messageReducer.messages,
-  isLoading: messageReducer.isLoading,
+  isLoading: chatReducer.isLoading,
 
 });
 

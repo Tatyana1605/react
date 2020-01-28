@@ -17,7 +17,7 @@ class ChatList extends React.Component {
         chatsRed: PropTypes.arrayOf(PropTypes.number).isRequired,
         addChat: PropTypes.func.isRequired,
         push: PropTypes.func.isRequired,
-
+        
     };
 
     state = {

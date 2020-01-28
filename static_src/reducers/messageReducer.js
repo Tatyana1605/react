@@ -11,7 +11,7 @@ const initialStore = {
           // 1: { text: "Привет!", sender: 'bot' },
           // 2: { text: "Здравствуйте!", sender: 'bot' },
       },
-  // isLoading: false,
+     isLoading: false,
  
 };
 

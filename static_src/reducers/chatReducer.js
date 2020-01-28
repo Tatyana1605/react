@@ -1,6 +1,6 @@
 import update from 'react-addons-update';
 import { SEND_MESSAGE  } from '../actions/messageActions';
-import { SUCCESS_CHATS_LOADING } from "../actions/chatActions";
+import { SUCCESS_CHATS_LOADING  } from "../actions/chatActions";
 
 import { ADD_CHAT, HIGHLIGHT_CHAT, UNHIGHLIGHT_CHAT } from "../actions/chatActions";
 
