@@ -4,6 +4,7 @@ import TransitionsModal from "./profile/modal";
 import CircularProgress from 'material-ui/CircularProgress';
 import {bindActionCreators} from "redux";
 import connect from "react-redux/es/connect/connect";
+import PushToggle from '../components/PushToggle';
 import './styles/styles.css';
 
  class Header extends React.Component {
@@ -25,6 +26,8 @@ import './styles/styles.css';
       const { chats, chatId } = this.props;
         return (
             <div className="header"  >
+               <PushToggle />
+
               <span style={ { fontSize: '20px', padding: '20px' } }> 
                { chats[chatId].title }
               </span>

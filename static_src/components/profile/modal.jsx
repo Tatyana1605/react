@@ -31,6 +31,10 @@ export default function TransitionsModal() {
     setOpen(false);
   };
 
+   
+
+
+
   return (
     <div>
       <a type="button" onClick={handleOpen}>

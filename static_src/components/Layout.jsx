@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import MessageField from './MessageField';
 import ChatList from './ChatList';
 import Header from './Header';
+import InstallPopup from './InstallPopup';
 import './styles/styles.css';
 
 
@@ -66,7 +67,7 @@ static defaultProps = {
   render() {
     return (
       <div className="layout">
-         
+        <InstallPopup/> 
           <Header chatId={ this.props.chatId }></Header>
         
         <div className="center">
